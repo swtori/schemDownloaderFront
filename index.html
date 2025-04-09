@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>Upload fichier</title></head>
+<body>
+  <h2>Uploader un fichier vers SFTP</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <button type="submit">Envoyer</button>
+  </form>
+
+  <script>
+    document.getElementById("uploadForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const fileInput = e.target.elements.file;
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      const res = await fetch("https://backendschemdownloader.onrender.com", {
+        method: "POST",
+        body: formData,
+      });
+
+      alert(await res.text());
+    };
+  </script>
+</body>
+</html>
